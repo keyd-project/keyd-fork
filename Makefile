@@ -104,7 +104,7 @@ test-io:
 	-o bin/test-io \
 		t/test-io.c \
 		src/keyboard.c \
-		src/string.c \
+		src/strutil.c \
 		src/macro.c \
 		src/config.c \
 		src/log.c \
