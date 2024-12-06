@@ -59,26 +59,146 @@ Some of the more interesting ones include:
 
 # Dependencies
 
- - Your favourite C compiler
- - Linux kernel headers (already present on most systems)
+## Required Build Dependencies
 
-## Optional
+  * Your favourite C11 compiler
+  * POSIX-compatible `make` (e.g., [GNU
+    Make](https://www.gnu.org/software/make/))
+  * Linux kernel headers (already present on most systems)
+  * [Python](https://www.python.org/) 3.8 or newer
+  * [scdoc](https://git.sr.ht/~sircmpwn/scdoc)
 
- - python      (for application specific remapping)
- - python-xlib (only for X support)
- - dbus-python (only for KDE support)
+## Optional Build Dependencies
+
+  * [bash](https://www.gnu.org/software/bash/) (for the `usb-gadget` virtual
+    keyboard driver)
+  * [systemd](https://systemd.io/) (for system services)
+
+## Optional Runtime Dependencies
+
+  * [bash](https://www.gnu.org/software/bash/) (for the `usb-gadget` virtual
+    keyboard driver)
+  * [Python](https://www.python.org/) 3.8 or newer (for application specific
+    remapping)
+  * [python-xlib](https://pypi.org/project/python-xlib/) (only for X support)
+  * [dbus-python](https://pypi.org/project/dbus-python/) (only for KDE support)
+  * [systemd](https://systemd.io/) (for system services)
 
 # Installation
 
-*Note:* master serves as the development branch, things may occasionally break
-between releases. Releases are [tagged](https://github.com/rvaiya/keyd/tags), and should be considered stable.
+## From a Pre-Built Package
+
+Binary packages for some distributions exist.  These are kindly maintained by
+community members; the keyd developers do not take responsibility for them.  If
+you wish to add yours below, please open a PR.
+
+### Alpine Linux
+
+[keyd](https://pkgs.alpinelinux.org/packages?name=keyd) package maintained by [@jirutka](https://github.com/jirutka).
+
+### Arch
+
+[Arch Linux](https://archlinux.org/packages/extra/x86_64/keyd/) package maintained by Arch packagers.
+
+### Debian
+
+Experimental `keyd` and `keyd-application-mapper` packages can be found in the
+CI build artifacts of the [work-in-progress Debian package
+repository](https://salsa.debian.org/rhansen/keyd):
+
+  * [amd64 (64-bit)](https://salsa.debian.org/rhansen/keyd/-/jobs/artifacts/debian/latest/browse/debian/output?job=build)
+  * [i386 (32-bit)](https://salsa.debian.org/rhansen/keyd/-/jobs/artifacts/debian/latest/browse/debian/output?job=build%20i386)
+
+Any Debian Developer who is willing to review the debianization effort and
+sponsor its upload is encouraged to contact
+[@rhansen](https://github.com/rhansen) (also see the [Debian ITP
+bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1060023)).
+
+### Fedora
+
+[COPR](https://copr.fedorainfracloud.org/coprs/alternateved/keyd/) package maintained by [@alternateved](https://github.com/alternateved).
+
+### openSUSE
+
+[opensuse](https://software.opensuse.org//download.html?project=hardware&package=keyd) package maintained by [@bubbleguuum](https://github.com/bubbleguuum).
+
+Easy install with `sudo zypper in keyd`.
+
+### Ubuntu
+
+Experimental `keyd` and `keyd-application-mapper` packages can be found in the
+[`ppa:keyd-team/ppa`
+archive](https://launchpad.net/~keyd-team/+archive/ubuntu/ppa).
+
+If you wish to help maintain this PPA, please contact
+[@rhansen](https://github.com/rhansen).
 
 ## From Source
 
-    git clone https://github.com/rvaiya/keyd
-    cd keyd
-    make && sudo make install
-    sudo systemctl enable keyd && sudo systemctl start keyd
+> [!NOTE]
+> The default branch (`master`) is the development branch; it contains the
+> latest work-in-progress code.  Things may occasionally break between releases.
+> Stable releases are [tagged](https://github.com/rvaiya/keyd/tags) and
+> announced on the [releases page](https://github.com/rvaiya/keyd/releases);
+> these versions are known to work.
+
+### From a Source Code Distribution Tarball
+
+  1. Download the desired tarball:
+       * Releases can be found on the [releases
+         page](https://github.com/rvaiya/keyd/releases).
+       * The current revision of the `master` branch (work-in-progress
+         development version) can be found at
+         <https://nightly.link/rvaiya/keyd/workflows/ci/master/distribution-tarball>.
+         Note that the distribution tarball is inside a zip file [due to an
+         unfortunate GitHub
+         limitation](https://github.com/actions/upload-artifact/issues/426).
+
+  2. Extract the tarball and `cd` to the source code directory:
+
+     ```shell
+     tar xvfa /path/to/keyd-*.tar.gz
+     cd keyd-*
+     ```
+
+  3. Ensure that all [required build dependencies](#required-build-dependencies)
+     have been installed.
+
+  4. Build and install keyd:
+
+     ```shell
+     ./configure
+     make
+     sudo make install
+     ```
+
+### From Git
+
+  1. Install [Git](https://git-scm.com/), [GNU
+     Autoconf](https://www.gnu.org/software/autoconf/), and [GNU
+     Automake](https://www.gnu.org/software/automake/).
+
+  2. Get the source code:
+
+     ```shell
+     git clone https://github.com/rvaiya/keyd
+     cd keyd
+     ```
+
+  3. Optionally switch to a released revision, if desired:
+
+     ```shell
+     git checkout v2.5.0
+     ```
+
+  4. Generate the `configure` script:
+
+     ```shell
+     ./autogen
+     ```
+
+  5. Follow steps 3 and later from [installation from a source code distribution
+     tarball](#from-a-source-code-distribution-tarball).
 
 # Quickstart
 
@@ -154,52 +274,6 @@ Experimental support for single board computers (SBCs) via usb-gadget
 has been added courtesy of Giorgi Chavchanidze.
 
 See [usb-gadget.md](src/vkbd/usb-gadget.md) for details.
-
-## Packages
-
-Third party packages for the some distributions also exist. If you wish to add
-yours to the list please file a PR. These are kindly maintained by community
-members, no personal responsibility is taken for them.
-
-### Alpine Linux
-
-[keyd](https://pkgs.alpinelinux.org/packages?name=keyd) package maintained by [@jirutka](https://github.com/jirutka).
-
-### Arch
-
-[Arch Linux](https://archlinux.org/packages/extra/x86_64/keyd/) package maintained by Arch packagers.
-
-### Debian
-
-Experimental `keyd` and `keyd-application-mapper` packages can be found in the
-CI build artifacts of the [work-in-progress Debian package
-repository](https://salsa.debian.org/rhansen/keyd):
-
-  * [amd64 (64-bit)](https://salsa.debian.org/rhansen/keyd/-/jobs/artifacts/debian/latest/browse/debian/output?job=build)
-  * [i386 (32-bit)](https://salsa.debian.org/rhansen/keyd/-/jobs/artifacts/debian/latest/browse/debian/output?job=build%20i386)
-
-Any Debian Developer who is willing to review the debianization effort and
-sponsor its upload is encouraged to contact
-[@rhansen](https://github.com/rhansen) (also see the [Debian ITP
-bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1060023)).
-
-### Fedora
-
-[COPR](https://copr.fedorainfracloud.org/coprs/alternateved/keyd/) package maintained by [@alternateved](https://github.com/alternateved).
-
-### openSUSE
-[opensuse](https://software.opensuse.org//download.html?project=hardware&package=keyd) package maintained by [@bubbleguuum](https://github.com/bubbleguuum).
-
-Easy install with `sudo zypper in keyd`.
-
-### Ubuntu
-
-Experimental `keyd` and `keyd-application-mapper` packages can be found in the
-[`ppa:keyd-team/ppa`
-archive](https://launchpad.net/~keyd-team/+archive/ubuntu/ppa).
-
-If you wish to help maintain this PPA, please contact
-[@rhansen](https://github.com/rhansen).
 
 # Sample Config
 
