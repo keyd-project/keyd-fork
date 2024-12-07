@@ -1,8 +1,29 @@
 [![Kofi](https://badgen.net/badge/icon/kofi?icon=kofi&label)](https://ko-fi.com/rvaiya)
-
-# Impetus
-
 [![Packaging status](https://repology.org/badge/tiny-repos/keyd.svg)](https://repology.org/project/keyd/versions)
+
+# keyd (temporary friendly fork)
+
+A key remapping daemon for Linux.
+
+> [!NOTE]
+> https://github.com/keyd-project/keyd-fork is a temporary, friendly fork of the
+> [original keyd project](https://github.com/rvaiya/keyd).  This fork was
+> created on 2024-12-06 with the following goals:
+>
+>   * Help reduce the backlog of pull requests in the original project by
+>     merging them here and creating releases that users can test.
+>   * Provide a well-maintained distribution tarball to make it easier for
+>     downstream packagers to maintain keyd packages.
+>   * Recruit potential maintainers.  (If you are interested, please contact
+>     [@rhansen](https://github.com/rhansen).)
+>
+> Once the original project acquires a vibrant group of maintainers, this fork
+> will be archived.  If the original project is abandoned, this fork will be
+> made permanent by dropping the `-fork` suffix.
+>
+> Feel free to open issues or merge requests in this fork.
+
+## Impetus
 
 Linux lacks a good key remapping solution. In order to achieve satisfactory
 results a medley of tools need to be employed (e.g xcape, xmodmap) with the end
@@ -10,7 +31,7 @@ result often being tethered to a specified environment (X11). keyd attempts to
 solve this problem by providing a flexible system wide daemon which remaps keys
 using kernel level input primitives (evdev, uinput).
 
-# Note on v2
+## Note on v2
 
 The config format has undergone several iterations since the first
 release. For those migrating their configs from v1 it is best
@@ -18,14 +39,14 @@ to reread the man page.
 
 See also: [changelog](docs/CHANGELOG.md).
 
-# Goals
+## Goals
 
   - Speed       (a hand tuned input loop written in C that takes <<1ms)
   - Simplicity  (a [config format](#sample-config) that is intuitive)
   - Consistency (modifiers that [play nicely with layers](https://github.com/rvaiya/keyd/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128) by default)
   - Modularity  (a UNIXy core extensible through the use of an [IPC](https://github.com/rvaiya/keyd/blob/90973686723522c2e44d8e90bb3508a6da625a20/docs/keyd.scdoc#L391) mechanism)
 
-# Features
+## Features
 
 keyd has several unique features many of which are traditionally only
 found in custom keyboard firmware like [QMK](https://github.com/qmk/qmk_firmware)
@@ -57,30 +78,30 @@ Some of the more interesting ones include:
 
  - A tool for programming individual key up/down events.
 
-# Dependencies
+## Dependencies
 
  - Your favourite C compiler
  - Linux kernel headers (already present on most systems)
 
-## Optional
+### Optional
 
  - python      (for application specific remapping)
  - python-xlib (only for X support)
  - dbus-python (only for KDE support)
 
-# Installation
+## Installation
 
 *Note:* master serves as the development branch, things may occasionally break
 between releases. Releases are [tagged](https://github.com/rvaiya/keyd/tags), and should be considered stable.
 
-## From Source
+### From Source
 
     git clone https://github.com/rvaiya/keyd
     cd keyd
     make && sudo make install
     sudo systemctl enable keyd && sudo systemctl start keyd
 
-# Quickstart
+## Quickstart
 
 1. Install and start keyd (e.g `sudo systemctl enable keyd`)
 
@@ -119,7 +140,7 @@ Some mice (e.g the Logitech MX Master) are capable of emitting keys and
 are consequently matched by the wildcard id. It may be necessary to
 explicitly blacklist these.
 
-## Application Specific Remapping (experimental)
+### Application Specific Remapping (experimental)
 
 - Add yourself to the keyd group:
 
@@ -148,7 +169,7 @@ display server initialization logic (e.g ~/.xinitrc) unless you are running Gnom
 
 See the man page for more details.
 
-## SBC support
+### SBC support
 
 Experimental support for single board computers (SBCs) via usb-gadget
 has been added courtesy of Giorgi Chavchanidze.
@@ -201,7 +222,7 @@ archive](https://launchpad.net/~keyd-team/+archive/ubuntu/ppa).
 If you wish to help maintain this PPA, please contact
 [@rhansen](https://github.com/rhansen).
 
-# Sample Config
+## Sample Config
 
 	[ids]
 
@@ -218,7 +239,7 @@ If you wish to help maintain this PPA, please contact
 	f = /
 	...
 
-# Recommended config
+## Recommended config
 
 Many users will probably not be interested in taking full advantage of keyd.
 For those who seek simple quality of life improvements I can recommend the
@@ -245,9 +266,9 @@ control (when held) and remaps all modifiers to 'oneshot' keys. Thus to produce
 the letter A you can now simply tap shift and then a instead of having to hold
 it. Finally it remaps insert to S-insert (paste on X11).
 
-# FAQS
+## FAQS
 
-## What about xmodmap/setxkbmap/*?
+### What about xmodmap/setxkbmap/*?
 
 xmodmap and friends are display server level tools with limited functionality.
 keyd is a system level solution which implements advanced features like
@@ -255,7 +276,7 @@ layering and [oneshot](https://docs.qmk.fm/#/one_shot_keys)
 modifiers.  While some X tools offer similar functionality I am not aware of
 anything that is as flexible as keyd.
 
-## What about [kmonad](https://github.com/kmonad/kmonad)?
+### What about [kmonad](https://github.com/kmonad/kmonad)?
 
 keyd was written several years ago to allow me to easily experiment with
 different layouts on my growing keyboard collection. At the time kmonad did not
@@ -271,7 +292,7 @@ in Haskell). Having said that, it supplies (in the author's opinion) the
 most valuable features in less than 2000 lines of C while providing
 a simple language agnostic config format.
 
-## Why doesn't keyd implement feature X?
+### Why doesn't keyd implement feature X?
 
 If you feel something is missing or find a bug you are welcome to file an issue
 on github. keyd has a minimalist (but sane) design philosophy which
@@ -279,7 +300,7 @@ intentionally omits certain features (e.g execing arbitrary executables
 as root). Things which already exist in custom keyboard firmware like QMK are
 good candidates for inclusion.
 
-# Contributing
+## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md).
 IRC Channel: #keyd on oftc
