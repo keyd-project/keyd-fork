@@ -1,9 +1,27 @@
 [![Kofi](https://badgen.net/badge/icon/kofi?icon=kofi&label)](https://ko-fi.com/rvaiya)
 [![Packaging status](https://repology.org/badge/tiny-repos/keyd.svg)](https://repology.org/project/keyd/versions)
 
-# keyd
+# keyd (temporary friendly fork)
 
 A key remapping daemon for Linux.
+
+> [!NOTE]
+> https://github.com/keyd-project/keyd-fork is a temporary, friendly fork of the
+> [original keyd project](https://github.com/rvaiya/keyd).  This fork was
+> created on 2024-12-06 with the following goals:
+>
+>   * Help reduce the backlog of pull requests in the original project by
+>     merging them here and creating releases that users can test.
+>   * Provide a well-maintained distribution tarball to make it easier for
+>     downstream packagers to maintain keyd packages.
+>   * Recruit potential maintainers.  (If you are interested, please contact
+>     [@rhansen](https://github.com/rhansen).)
+>
+> Once the original project acquires a vibrant group of maintainers, this fork
+> will be archived.  If the original project is abandoned, this fork will be
+> made permanent by dropping the `-fork` suffix.
+>
+> Feel free to open issues or merge requests in this fork.
 
 ## Impetus
 
