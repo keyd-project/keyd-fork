@@ -936,9 +936,9 @@ _will thus produce A-tab instead of M-\\_.
 
 	[shift]
 
-    # Without a delay, you may have capslock turn on as you type
-    leftshift =	timeout(leftshift, 1000, capslock)
-    rightshift = timeout(rightshift, 1000, capslock)
+	# Without a delay, you may have capslock turn on as you type
+	leftshift = timeout(leftshift, 1000, capslock)
+	rightshift = timeout(rightshift, 1000, capslock)
 ```
 
 ## Example 7
