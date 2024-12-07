@@ -932,11 +932,11 @@ _will thus produce A-tab instead of M-\\_.
 ## Example 6
 
 ```
-	# Holding both shift keys will activate capslock.
+	# Briefly holding down both shift keys will toggle capslock.
 
 	[shift]
 
-	# Without a delay, you may have capslock turn on as you type
+	# Without a delay, you might accidentally toggle capslock as you type.
 	leftshift = timeout(leftshift, 1000, capslock)
 	rightshift = timeout(rightshift, 1000, capslock)
 ```
