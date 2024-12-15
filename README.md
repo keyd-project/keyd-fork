@@ -14,12 +14,16 @@ A key remapping daemon for Linux.
 >     merging them here and creating releases that users can test.
 >   * Provide a well-maintained distribution tarball to make it easier for
 >     downstream packagers to maintain keyd packages.
->   * Recruit potential maintainers.  (If you are interested, please contact
->     [@rhansen](https://github.com/rhansen).)
+>   * Recruit potential maintainers.  (If you are interested, please speak up at
+>     [rvaiya/keyd#887](https://github.com/rvaiya/keyd/issues/887) or contact
+>     [@rhansen](https://github.com/rhansen) directly.)
 >
 > Once the original project acquires a vibrant group of maintainers, this fork
 > will be archived.  If the original project is abandoned, this fork will be
 > made permanent by dropping the `-fork` suffix.
+>
+> See [rvaiya/keyd#887](https://github.com/rvaiya/keyd/issues/887) for
+> discussion.
 >
 > Feel free to open issues or merge requests in this fork.
 
