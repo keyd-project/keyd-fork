@@ -5,9 +5,9 @@ AC_INIT([keyd],
   dnl m4_esyscmd macro does not quote the command output itself, so the command output is subject to
   dnl expansion).
   m4_dquote(m4_esyscmd([printf "[%s]" "$(build-aux/git-version-gen .dist-version)"])),
-  [https://github.com/rvaiya/keyd/issues],
+  [https://github.com/keyd-project/keyd-fork/issues],
   [],
-  [https://github.com/rvaiya/keyd])
+  [https://github.com/keyd-project/keyd-fork])
 AC_SUBST([CONFIGURE_DEPENDENCIES], ['$(top_srcdir)/build-aux/git-version-gen'])
 AC_CONFIG_SRCDIR([src/keyd.c])
 AC_CONFIG_AUX_DIR([build-aux])

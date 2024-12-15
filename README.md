@@ -47,8 +47,12 @@ See also: [changelog](docs/CHANGELOG.md).
 
   - Speed       (a hand tuned input loop written in C that takes <<1ms)
   - Simplicity  (a [config format](#sample-config) that is intuitive)
-  - Consistency (modifiers that [play nicely with layers](https://github.com/rvaiya/keyd/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128) by default)
-  - Modularity  (a UNIXy core extensible through the use of an [IPC](https://github.com/rvaiya/keyd/blob/90973686723522c2e44d8e90bb3508a6da625a20/docs/keyd.scdoc#L391) mechanism)
+  - Consistency (modifiers that [play nicely with
+    layers](https://github.com/keyd-project/keyd-fork/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128)
+    by default)
+  - Modularity (a UNIXy core extensible through the use of an
+    [IPC](https://github.com/keyd-project/keyd-fork/blob/90973686723522c2e44d8e90bb3508a6da625a20/docs/keyd.scdoc#L391)
+    mechanism)
 
 ## Features
 
@@ -58,7 +62,8 @@ as well as some which are unique to keyd.
 
 Some of the more interesting ones include:
 
-- Layers (with support for [hybrid modifiers](https://github.com/rvaiya/keyd/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128)).
+- Layers (with support for [hybrid
+  modifiers](https://github.com/keyd-project/keyd-fork/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128)).
 - Key overloading (different behaviour on tap/hold).
 - Keyboard specific configuration.
 - Instantaneous remapping (no more flashing :)).
@@ -161,20 +166,21 @@ If you wish to help maintain this PPA, please contact
 ### From Source
 
 > [!NOTE]
-> The default branch (`master`) is the development branch; it contains the
-> latest work-in-progress code.  Things may occasionally break between releases.
-> Stable releases are [tagged](https://github.com/rvaiya/keyd/tags) and
-> announced on the [releases page](https://github.com/rvaiya/keyd/releases);
-> these versions are known to work.
+> The default branch (`main`) is the development branch; it contains the latest
+> work-in-progress code.  Things may occasionally break between releases.
+> Stable releases are [tagged](https://github.com/keyd-project/keyd-fork/tags)
+> and announced on the [releases
+> page](https://github.com/keyd-project/keyd-fork/releases); these versions are
+> known to work.
 
 #### From a Source Code Distribution Tarball
 
   1. Download the desired tarball:
        * Releases can be found on the [releases
-         page](https://github.com/rvaiya/keyd/releases).
-       * The current revision of the `master` branch (work-in-progress
-         development version) can be found at
-         <https://nightly.link/rvaiya/keyd/workflows/ci/master/distribution-tarball>.
+         page](https://github.com/keyd-project/keyd-fork/releases).
+       * The current revision of the `main` branch (work-in-progress development
+         version) can be found at
+         <https://nightly.link/keyd-project/keyd-fork/workflows/ci/main/distribution-tarball>.
          Note that the distribution tarball is inside a zip file [due to an
          unfortunate GitHub
          limitation](https://github.com/actions/upload-artifact/issues/426).
@@ -206,8 +212,8 @@ If you wish to help maintain this PPA, please contact
   2. Get the source code:
 
      ```shell
-     git clone https://github.com/rvaiya/keyd
-     cd keyd
+     git clone https://github.com/keyd-project/keyd-fork
+     cd keyd-fork
      ```
 
   3. Optionally switch to a released revision, if desired:
