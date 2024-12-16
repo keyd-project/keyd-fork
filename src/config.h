@@ -19,7 +19,7 @@
 #define ID_MOUSE	2
 #define ID_KEYBOARD	4
 
-enum op {
+enum op : short {
 	OP_NULL = 0,
 	OP_KEYSEQUENCE = 1,
 

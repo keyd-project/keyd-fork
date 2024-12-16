@@ -2,6 +2,10 @@
 #include <memory>
 #include <utility>
 
+#ifndef CONFIG_DIR
+#define CONFIG_DIR ""
+#endif
+
 struct config_ent {
 	struct config config = {};
 	std::unique_ptr<keyboard> kbd;
@@ -438,7 +442,7 @@ static int event_handler(struct event *ev)
 		kev.timestamp = ev->timestamp;
 
 		timeout = kbd_process_events(active_kbd, &kev, 1);
-		break;
+		return timeout;
 	case EV_DEV_EVENT:
 		if (ev->dev->data) {
 			struct keyboard *kbd = (struct keyboard*)ev->dev->data;
@@ -474,10 +478,10 @@ static int event_handler(struct event *ev)
 				} else {
 					vkbd_mouse_move(vkbd, ev->devev->x, ev->devev->y);
 				}
-				break;
+				return timeout;
 			case DEV_MOUSE_MOVE_ABS:
 				vkbd_mouse_move_abs(vkbd, ev->devev->x, ev->devev->y);
-				break;
+				return timeout;
 			default:
 				break;
 			case DEV_MOUSE_SCROLL:
@@ -538,14 +542,10 @@ static int event_handler(struct event *ev)
 		break;
 	}
 
-	size_t i;
-	for (i = 0; i < device_table_sz; i++)
-		if (device_table[i].data) {
-			struct keyboard* kbd = (struct keyboard*)device_table[i].data;
-			if (kbd->config.layer_indicator)
-				activate_leds(kbd);
-		}
-
+	for (auto ent = configs.get(); ent; ent = ent->next.get()) {
+		if (ent->kbd->config.layer_indicator)
+			activate_leds(ent->kbd.get());
+	}
 	return timeout;
 }
 

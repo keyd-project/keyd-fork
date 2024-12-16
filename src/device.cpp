@@ -391,7 +391,6 @@ struct device_event *device_read_event(struct device *dev)
 		if (errno == EAGAIN) {
 			return NULL;
 		} else {
-			dev->fd = -1;
 			devev.type = DEV_REMOVED;
 			return &devev;
 		}
