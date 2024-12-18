@@ -1,9 +1,51 @@
 [![Kofi](https://badgen.net/badge/icon/kofi?icon=kofi&label)](https://ko-fi.com/rvaiya)
 [![Packaging status](https://repology.org/badge/tiny-repos/keyd.svg)](https://repology.org/project/keyd/versions)
 
-# keyd
+# keyd (temporary friendly fork)
 
 A key remapping daemon for Linux.
+
+> [!NOTE]
+> https://github.com/keyd-project/keyd-fork is a temporary, friendly fork of the
+> [original keyd project](https://github.com/rvaiya/keyd) (upstream).  This fork
+> was created on 2024-12-06 with the following goals:
+>
+>   * Help reduce the backlog of pull requests in the original project by
+>     merging them here and creating releases that users can test.
+>   * Provide a well-maintained distribution tarball to make it easier for
+>     downstream packagers to maintain keyd packages.
+>   * Recruit potential maintainers.  (If you are interested, please speak up at
+>     [rvaiya/keyd#887](https://github.com/rvaiya/keyd/issues/887) or contact
+>     [@rhansen](https://github.com/rhansen) directly.)
+>
+> Once the original project acquires a vibrant group of maintainers, this fork
+> will be archived.  If the original project is abandoned, this fork will be
+> made permanent by dropping the `-fork` suffix.
+>
+> See [rvaiya/keyd#887](https://github.com/rvaiya/keyd/issues/887) for
+> discussion.
+>
+> This fork's branch plan: Commits intended to be reintegrated with the upstream
+> project will be put on a `reintegrate-vN` branch where `N` is a version
+> number.  If new commits are pushed to the upstream project, and the new
+> commits cause the current `reintegrate-vN` branch to no longer be
+> fast-forwardable from the upstream's default branch:
+>
+>   1. A new `reintegrate-vM` branch (where `M = N+1`) is created pointing to
+>      the same commit as `reintegrate-vN`, but not pushed yet.
+>   2. `reintegrate-vM` is rebased onto the upstream project's default branch,
+>      preserving merges.
+>   3. `reintegrate-vM` is merged into `main`.
+>   4. `reintegrate-vN` is deleted.
+>
+> This is a bit painful, but the goal is to make it as easy as possible to
+> reintegrate with the upstream project without force-pushing this fork's `main`
+> branch.
+>
+> Feel free to open issues or pull requests in this fork.  Pull requests
+> containing commits intended for reintegration into the upstream project should
+> be merged into the current `reintegrate-vN` branch, not `main`.  After the
+> pull request is merged, `reintegrate-vN` is merged into `main`.
 
 ## Impetus
 
@@ -25,8 +67,12 @@ See also: [changelog](docs/CHANGELOG.md).
 
   - Speed       (a hand tuned input loop written in C that takes <<1ms)
   - Simplicity  (a [config format](#sample-config) that is intuitive)
-  - Consistency (modifiers that [play nicely with layers](https://github.com/rvaiya/keyd/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128) by default)
-  - Modularity  (a UNIXy core extensible through the use of an [IPC](https://github.com/rvaiya/keyd/blob/90973686723522c2e44d8e90bb3508a6da625a20/docs/keyd.scdoc#L391) mechanism)
+  - Consistency (modifiers that [play nicely with
+    layers](https://github.com/keyd-project/keyd-fork/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128)
+    by default)
+  - Modularity (a UNIXy core extensible through the use of an
+    [IPC](https://github.com/keyd-project/keyd-fork/blob/90973686723522c2e44d8e90bb3508a6da625a20/docs/keyd.scdoc#L391)
+    mechanism)
 
 ## Features
 
@@ -36,7 +82,8 @@ as well as some which are unique to keyd.
 
 Some of the more interesting ones include:
 
-- Layers (with support for [hybrid modifiers](https://github.com/rvaiya/keyd/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128)).
+- Layers (with support for [hybrid
+  modifiers](https://github.com/keyd-project/keyd-fork/blob/6dc2d5c4ea76802fd192b143bdd53b1787fd6deb/docs/keyd.scdoc#L128)).
 - Key overloading (different behaviour on tap/hold).
 - Keyboard specific configuration.
 - Instantaneous remapping (no more flashing :)).
@@ -139,20 +186,21 @@ If you wish to help maintain this PPA, please contact
 ### From Source
 
 > [!NOTE]
-> The default branch (`master`) is the development branch; it contains the
-> latest work-in-progress code.  Things may occasionally break between releases.
-> Stable releases are [tagged](https://github.com/rvaiya/keyd/tags) and
-> announced on the [releases page](https://github.com/rvaiya/keyd/releases);
-> these versions are known to work.
+> The default branch (`main`) is the development branch; it contains the latest
+> work-in-progress code.  Things may occasionally break between releases.
+> Stable releases are [tagged](https://github.com/keyd-project/keyd-fork/tags)
+> and announced on the [releases
+> page](https://github.com/keyd-project/keyd-fork/releases); these versions are
+> known to work.
 
 #### From a Source Code Distribution Tarball
 
   1. Download the desired tarball:
        * Releases can be found on the [releases
-         page](https://github.com/rvaiya/keyd/releases).
-       * The current revision of the `master` branch (work-in-progress
-         development version) can be found at
-         <https://nightly.link/rvaiya/keyd/workflows/ci/master/distribution-tarball>.
+         page](https://github.com/keyd-project/keyd-fork/releases).
+       * The current revision of the `main` branch (work-in-progress development
+         version) can be found at
+         <https://nightly.link/keyd-project/keyd-fork/workflows/ci/main/distribution-tarball>.
          Note that the distribution tarball is inside a zip file [due to an
          unfortunate GitHub
          limitation](https://github.com/actions/upload-artifact/issues/426).
@@ -184,8 +232,8 @@ If you wish to help maintain this PPA, please contact
   2. Get the source code:
 
      ```shell
-     git clone https://github.com/rvaiya/keyd
-     cd keyd
+     git clone https://github.com/keyd-project/keyd-fork
+     cd keyd-fork
      ```
 
   3. Optionally switch to a released revision, if desired:
