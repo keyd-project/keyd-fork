@@ -3,8 +3,8 @@
  *
  * © 2019 Raheman Vaiya (see also: LICENSE).
  */
-#ifndef STRUTIL_H
-#define STRUTIL_H
+#ifndef STRING_H
+#define STRING_H
 
 #include <stdint.h>
 #include <stdlib.h>

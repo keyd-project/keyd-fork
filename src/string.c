@@ -5,7 +5,7 @@
  */
 #include <assert.h>
 
-#include "strutil.h"
+#include "string.h"
 
 int utf8_read_char(const char *_s, uint32_t *code)
 {

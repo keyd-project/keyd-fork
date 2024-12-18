@@ -6,8 +6,6 @@
 #ifndef KEYD_H_
 #define KEYD_H_
 
-#include <autoconfig.h>
-
 #include <assert.h>
 #include <ctype.h>
 #include <dirent.h>
@@ -46,7 +44,7 @@
 #include "keyboard.h"
 #include "keys.h"
 #include "vkbd.h"
-#include "strutil.h"
+#include "string.h"
 
 #define MAX_IPC_MESSAGE_SIZE 4096
 

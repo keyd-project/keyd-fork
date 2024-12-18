@@ -239,4 +239,4 @@ oneshot_layer(layer)        = oneshot(layer)
 [dvorak:default]            = [dvorak:main]
 ```
 
-See the man page (`man keyd`) for details.
+See the [manpage](man.md) for details.
