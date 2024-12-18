@@ -35,8 +35,6 @@ AS_IF([test "${_keyd_cver}" -ge 2011],
   ])
 
 AC_CONFIG_HEADERS([autoconfig.h])
-AC_PATH_PROG([BASH], [bash], [])
-AS_IF([test -z "$BASH"], [AC_MSG_FAILURE([bash is required])])
 AC_PATH_PROG([SCDOC], [scdoc], [])
 AS_IF([test -z "$SCDOC"], [AC_MSG_FAILURE([scdoc is required])])
 AM_PATH_PYTHON([3.8])
@@ -49,6 +47,11 @@ AC_ARG_WITH([vkbd],
   [with_vkbd=uinput])
 AC_SUBST([VKBD], [$with_vkbd])
 AM_CONDITIONAL([USB_GADGET], [test "x${with_vkbd}" = xusb-gadget])
+AS_IF(
+  [test "x${with_vkbd}" = xusb-gadget], [
+    AC_PATH_PROG([BASH], [bash], [])
+    AS_IF([test -z "$BASH"], [AC_MSG_FAILURE([bash is required for --with-vkbd=usb-gadget])])
+  ])
 
 AC_ARG_WITH([systemd-system-unit],
   [AS_HELP_STRING(
