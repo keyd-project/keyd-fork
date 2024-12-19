@@ -142,12 +142,24 @@ static void activate_leds(const struct keyboard *kbd)
 
 	for (size_t i = 0; i < device_table_sz; i++)
 		if (device_table[i].data == kbd)
-			device_set_led(&device_table[i], 1, active_layers);
+			device_set_led(&device_table[i], kbd->config.layer_indicator, active_layers);
+}
+
+static void restore_leds()
+{
+	for (size_t i = 0; i < device_table_sz; i++) {
+		struct device* dev = &device_table[i];
+		if (dev->grabbed && dev->data) {
+			for (int j = 0; j < LED_CNT; j++) {
+				device_set_led(dev, dev->led_state[j], j);
+			}
+		}
+	}
 }
 
 static void on_layer_change(const struct keyboard *kbd, const struct layer *layer, uint8_t state)
 {
-	if (kbd->config.layer_indicator) {
+	if (kbd->config.layer_indicator <= LED_MAX) {
 		activate_leds(kbd);
 	}
 
@@ -253,6 +265,7 @@ static void manage_device(struct device *dev)
 			  dev->id, ent->config.pathstr.c_str(), dev->name);
 
 		dev->data = ent->kbd.get();
+		device_set_led(dev, ent->kbd->config.layer_indicator, 0);
 	} else {
 		dev->data = NULL;
 		device_ungrab(dev);
@@ -262,12 +275,11 @@ static void manage_device(struct device *dev)
 
 static void reload()
 {
-	size_t i;
-
+	restore_leds();
 	configs.reset();
 	load_configs();
 
-	for (i = 0; i < device_table_sz; i++)
+	for (size_t i = 0; i < device_table_sz; i++)
 		manage_device(&device_table[i]);
 
 	clear_vkbd();
@@ -462,7 +474,7 @@ static int event_handler(struct event *ev)
 		kev.timestamp = ev->timestamp;
 
 		timeout = kbd_process_events(active_kbd, &kev, 1);
-		return timeout;
+		break;
 	case EV_DEV_EVENT:
 		if (ev->dev->data) {
 			struct keyboard *kbd = (struct keyboard*)ev->dev->data;
@@ -498,10 +510,14 @@ static int event_handler(struct event *ev)
 				} else {
 					vkbd_mouse_move(vkbd, ev->devev->x, ev->devev->y);
 				}
-				return timeout;
+				break;
 			case DEV_MOUSE_MOVE_ABS:
 				vkbd_mouse_move_abs(vkbd, ev->devev->x, ev->devev->y);
-				return timeout;
+				break;
+			case DEV_LED:
+				if (ev->devev->code == kbd->config.layer_indicator)
+					activate_leds(kbd);
+				break;
 			default:
 				break;
 			case DEV_MOUSE_SCROLL:
@@ -533,10 +549,19 @@ static int event_handler(struct event *ev)
 			for (i = 0; i < device_table_sz; i++)
 				if (device_table[i].data) {
 					struct keyboard* kbd = (struct keyboard*)device_table[i].data;
-					if (ev->devev->code == 1 && kbd->config.layer_indicator)
+					if (ev->devev->code <= LED_MAX) {
+						// Save LED state for restoring it later
+						auto prev = std::exchange(device_table[i].led_state[ev->devev->code], ev->devev->pressed);
+						if (prev == ev->devev->pressed)
+							continue;
+					}
+					if (ev->devev->code == kbd->config.layer_indicator) {
+						// Suppress indicator change
 						continue;
+					}
 					device_set_led(&device_table[i], ev->devev->code, ev->devev->pressed);
 				}
+			break;
 		}
 
 		break;
@@ -562,10 +587,6 @@ static int event_handler(struct event *ev)
 		break;
 	}
 
-	for (auto ent = configs.get(); ent; ent = ent->next.get()) {
-		if (ent->kbd->config.layer_indicator)
-			activate_leds(ent->kbd.get());
-	}
 	return timeout;
 }
 

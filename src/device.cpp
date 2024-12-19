@@ -349,6 +349,11 @@ int device_grab(struct device *dev)
 		usleep(100);
 	}
 
+	if (ioctl(dev->fd, EVIOCGLED(LED_CNT), dev->led_state) < 0) {
+		perror("EVIOCGLED");
+		return -1;
+	}
+
 	if (ioctl(dev->fd, EVIOCGRAB, (volatile void*) 1) < 0) {
 		perror("EVIOCGRAB");
 		return -1;
@@ -516,12 +521,15 @@ struct device_event *device_read_event(struct device *dev)
 	return &devev;
 }
 
-void device_set_led(const struct device *dev, int led, int state)
+void device_set_led(const struct device *dev, uint8_t led, int state)
 {
+	if (led > LED_MAX)
+		return;
+
 	struct input_event ev = {
 		.time = {},
 		.type = EV_LED,
-		.code = (unsigned short)led,
+		.code = led,
 		.value = state
 	};
 

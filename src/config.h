@@ -134,7 +134,7 @@ struct config {
 	long chord_interkey_timeout;
 	long chord_hold_timeout;
 
-	uint8_t layer_indicator;
+	uint8_t layer_indicator = 255;
 	uint8_t disable_modifier_guard;
 	std::string default_layout;
 };
